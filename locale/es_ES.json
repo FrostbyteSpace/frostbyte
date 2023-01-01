@@ -1,0 +1,160 @@
+{
+    "meta": {
+        "name": "Republic of Spain",
+        "short_name": "Español",
+        "english_name": "Spain",
+        "code": "ES",
+        "flag": ":flag_es:"    
+    },
+
+    
+    "NotImplemented": "No implementado",
+    "NotImplementedDescription": "La operación solicitada no está implementada.",
+    "NotYetTranslated": "Aún no traducido",
+    "NotYetTranslatedDescription": "La operación solicitada aún no está traducida.",
+
+
+    "CommandNotFoundClosestMatch": "comando ``{command}`` no encontrado. ¿Quicistes decir ``{closest_match}``?",
+    "CommandNotFound": "Comando ``{command}`` no encontrado.",
+    "CommandDisabled": "Comando ``{command}`` está deshabilitado.",
+    "MissingRequiredArgument": "Falta el argumento requerido.",
+    "MissingPermissions": "Usted no tienes los permisos necesarios para ejecutar este comando.",
+    "BotMissingPermissions": "Yo no tengo los permisos necesarios para ejecutar este comando.",
+    "CommandOnCooldown": "Este comando está en tiempo de enfriamiento. Inténtalo de nuevo en {retry_after} segundos.",
+    "CommandErrorDescription": "Ha habido un error que un protogen no puede manejar. ¡No te preocupes! ¡Se ha registrado a los desarrolladores!",
+
+
+    "NSFWFilterMessage": "Acaba de enviar un mensaje que contiene contenido NSFW. Tenga en cuenta que esto no está permitido en este servidor. Si desea enviar contenido NSFW, utilice el canal NSFW.\n**Confidence: {confidence}%\nDetecciones:**\n{detections}\n\nSi cree que esto es un error, póngase en contacto con un moderador.",
+    "AntiHoistMessage": "Ha cambiado su nombre a un nombre que no está permitido en {guild}. Cambie su nombre por algo que no esté izado.\nSi cree que se trata de un error, póngase en contacto con un moderador.",
+
+    "PingMessage": "Pinging...",
+    "PingEditMessage": "un momento! :eyes:",
+    "PingFinalMessageTitle": "Pong!",
+    "PingFinalMessageDescription": "**Latido:** {heartbeat}\n**Mensaje:** {msg}\n**Edición:** {edit}\n**Base de datos:** {db}",
+    "PingCommandDescription": "Comprueba la latencia del bot.",
+
+
+    "InviteMessage": "Invítame a tu servidor!",
+    "InviteMessageTitle": "Invita al bot!",
+    "InviteSupportMessage": "Únase al servidor de soporte!",
+    "InviteSupportDeveloperMessage": "Apoyar a los desarrolladores!",
+    "ClickHere": "[Haga clic aquí]({link})",
+
+
+    "StatsTitle": "Estadísticas de bots",
+    "StatsPingTitle": "Ping",
+    "StatsPingDescription": "{ping}ms",
+    "StatsUptimeTitle": "Uptime",
+    "StatsUptimeDescription": "{days} Días, {hours} horas, {minutes} minutos, {seconds} segundos",
+    "StatsSystemUsageTitle": "Uso del sistema",
+    "StatsSystemUsageDescription": "Memoria: {used}B / {total}B ({available}B disponible)\nCPU: {cpu}%\nThreads: {threads}",
+    "StatsNetworkUsageTitle": "Uso de la red",
+    "StatsNetworkUsageDescription": "Descarga: {download}B\nSubida: {upload}B",
+    "StatsServersTitle": "Servidores",
+    "StatsShardsTitle": "Shards",
+    "StatsCogsTitle": "Cogs",
+    "StatsCommandsTitle": "Comando",
+    "StatsDeployedTitle": "Desplegado",
+    "StatsVersionTitle": "Versión",
+    "StatsLibraryTitle": "Versiones de biblioteca",
+    "StatsLibraryDescription": "Python: {python}\ndiscord.py: {discord}\n",
+
+
+    "AvatarTitle": "{username} avatar",
+
+
+    "UserInfoTitle": "{username} información",
+    "UserInfoJoined": "ha entrado",
+    "UserInfoRegistered": "Registrado",
+    "UserInfoRoles": "Roles (**{count}**)",
+    "UserInfoNickname": "Apodo",
+    "UserInfoPronouns": "Pronombres",
+    "UserInfoBadges": "Insignias",
+    "UserInfoBadgesNone": "None",
+    "UserInfoPronounsUnavailable": "PronounDB no está disponible actualmente.",
+    "UserInfoPronounsFooter": "Pronombres provisto por https://pronoundb.org",
+    "UserInfoReputation": "Reputación",
+    "UserInfoReputationPercentage": "**{total_percentage}%** En {mutual} ({mutual_percentage}%) servidores mutuos, están prohibidos en {banned} servidores ({banned_percentage}%).",
+
+    "ConfigTitle": "Configuración",
+    "ConfigDescription": "La configuración de este servidor.",
+    "Active": "Activo",
+    "Inactive": "Inactivo",
+    "ConfigNSFWTitle": "Filtro de imagen NSFW",
+    "ConfigPrefixTitle": "Prefijo",
+    "ConfigLanguageTitle": "Idioma",
+    "ConfigAntiHoistTitle": "Anti-Hoist",
+    "ConfigAntiInviteTitle": "Anti-invitación",
+    "ConfigRaidModeTitle": "Modo Raid",
+    "ConfigWelcomeTitle": "Mensaje de bienvenida",
+    "ConfigLeaveTitle": "mensaje de departo",
+
+
+    "PrefixCurrent": "El prefijo actual es `{prefix}`.",
+    "PrefixSet": "El prefijo se ha establecido como `{prefix}`.",
+
+
+    "LanguageCurrent": "El idioma actual es `{lang}`.",
+    "LanguageAlreadySet": "El idioma ya está configurado en `{lang}`.",
+    "LanguageUSAEasterEgg": "Tu puta.",
+    "LanguageSet": "El idioma se ha establecido como `{lang}`.",
+    "LanguageListTitle": "Idiomas disponibles",
+    "LanguageListDescription": "Los siguientes idiomas están disponibles. Use ``language <language>`` para establecer el idioma.\nTenga en cuenta: es posible que algunos idiomas no estén completamente traducidos.",
+    "LanguageInvalid": "Ese lenguaje no es válido. Use ``language list`` para ver una lista de idiomas disponibles.",
+    "LanguageInvalidCloseMatch": "Ese lenguaje no es válido. ¿Quicistes decir ``{language}`` ({flag} {short_name})?",
+    "LanguageNotTranslated": "El idioma que está seleccionando no está completamente traducido. {totalKeys} / {fullTotal} llaves traducidas ({translated}%). Si desea continuar, por favor diga ‘si’.",
+    "LanguageNotTranslatedTimeout": "No respondiste a tiempo. Inténtalo de nuevo.",
+    "LanguageNotTranslatedNo": "El idioma no fue cambiado.",
+
+    "NSFWCurrent": "La gravedad actual del filtro de imagen NSFW es `{severity}`.",
+    "NSFWSet": "La gravedad del filtro de imagen NSFW se ha establecido como `{severity}`.",
+    "NSFWInvalid": "Esa gravedad no es válida. Usa un número entre 0 y 100. (0 = más estricto, 100 = menos estricto)",
+
+    
+    "AntiHoistSet": "El ajuste anti-hoist se ha establecido en `{enabled}`.",
+
+    
+    "WelcomeSet": "El canal de bienvenida se ha configurado para {channel}.",
+    "WelcomeDisabled": "El canal de bienvenida ha sido deshabilitado.",
+
+
+    "LeaveSet": "El canal de salida se ha configurado para {channel}.",
+    "LeaveDisabled": "El canal de salida ha sido deshabilitado.",
+
+
+    "HelpTitle": "Comando",
+    "HelpDescription": "Los siguientes comandos están disponibles.",
+    "HelpFooter": "Use ``help <command>`` Para obtener más información acerca de un comando.",
+    "HelpCommandUnavailable": "Este comando no está disponible.",
+    "HelpCommandNotFound": "Comando no encontrado.",
+    "HelpNoDescription": "No hay descripción disponible.",
+    "HelpCommandAliasesTitle": "Aliases",
+    "HelpCommandUsageTitle": "Uso",
+    "HelpCommandChecksTitle": "Checks",
+    "HelpCommandSubcommandsTitle": "Subcomandos",
+
+
+    "NSFWNoResults": "No se encontraron resultados.",
+    "NSFWError": "Se ha producido un error al realizar la consulta. Inténtalo de nuevo más tarde.",
+    "NSFWNoUsableResults": "No se encontraron resultados utilizables. Con las limitaciones de Discord, los videos y los archivos de audio no se pueden usar. Tenga en cuenta que algunos resultados están excluidos debido a los Términos de servicio de Discord..",
+
+    "InfoTitle": "Frostbyte, Hecho con amor por Robyn (y traducido adolorido por Zincy_boi. @w@)",
+    "InfoDescription": "Frostbyte es un bot multipropósito con muchas características, incluyendo moderación, diversión y utilidad. El bot se lanzó originalmente en 2020 después de haber sido desarrollado durante un año, estancado por la pandemia de COVID-19, y se ha actualizado y mejorado desde entonces. Frostbyte se encuentra actualmente en más de 500 servidores y es utilizado por más de 1000 usuarios.\nPara obtener más información, visite el [website](https://frostbyte.jackelope.gay/).",
+
+    "UserConfigTitle": "Configuración de usuario",
+    "UserConfigDescription": "La configuración para este usuario.",
+    "UserConfigLanguageTitle": "Idioma",
+    "UserConfigLanguageCurrent": "El idioma actual es `{lang}`.",
+    "UserConfigLanguageAlreadySet": "El idioma ya está configurado como `{lang}`.",
+    "UserConfigLanguageSet": "El idioma se ha establecido como `{lang}`.",
+    "UserConfigLanguageInvalid": "Ese idioma no es válido. Use ``userconfig language list`` para ver una lista de idiomas disponibles.",
+    "UserConfigCountryTitle": "País",
+    "UserConfigCountryCurrent": "El país actual es `{country}`.",
+    "UserConfigCountryAlreadySet": "El país ya está establecido como `{country}`.",
+    "UserConfigCountrySet": "El país se ha establecido como `{country}`.",
+    "UserConfigCountryInvalid": "Ese país no es válido. Por favor, utilice la ortografía inglesa del país. Si sigue siendo inválido, únase al servidor de soporte, ya que es posible que el país no esté en la base de datos.\nPaíses conocidos actuales: \n{countries}",
+    "UserConfigCountryListTitle": "Países disponibles",
+    "UserConfigCountryListDescription": "Los siguientes países están disponibles. Use ``userconfig country <country>`` para establecer el país.\nSi falta un país, únase al servidor de soporte. Nota: Actualmente no se nos permite agregar Rusia, China o Corea del Norte debido a varias razones geopolíticas."
+
+
+}

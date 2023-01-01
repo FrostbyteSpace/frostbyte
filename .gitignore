@@ -1,0 +1,11 @@
+.env
+node_modules
+*.log
+db/*
+.vscode
+__pycache__
+.mypy_cache
+temp/*.png
+temp/*.jpg
+temp/*.jpeg
+temp/*.gif

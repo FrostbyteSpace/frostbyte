@@ -1,0 +1,156 @@
+{
+    "meta": {
+        "name": "The Netherlands",
+        "short_name": "Nederland",
+        "english_name": "The Netherlands",
+        "code": "NL",
+        "flag": ":flag_nl:"
+    },
+    
+    "NotImplemented": "Niet geïmplementeerd",
+    "NotImplementedDescription": "De gevraagde handeling is niet geïmplementeerd.",
+    "NotYetTranslated": "Nog niet vertaald.",
+    "NotYetTranslatedDescription": "The gevraagde handeling is not niet vertaald.",
+
+
+    "CommandNotFoundClosestMatch": "Opdracht ``{command}`` niet gevonden. Bedoelde je ``{closest_match}``?",
+    "CommandNotFound": "Opdracht ``{command}`` niet gevonden.",
+    "CommandDisabled": "Opdracht ``{command}`` is uitgeschakeld.",
+    "MissingRequiredArgument": "Er mist een optie.",
+    "MissingPermissions": "Je hebt de benodigde rechten om deze opdracht uit te voeren niet.",
+    "BotMissingPermissions": "Ik heb de benodigde rechten om deze opdracht uit te voeren niet.",
+    "CommandOnCooldown": "Deze opdracht is te kort geleden gebruikt. Probeer opnieuw na {retry_after} seconds.",
+    "CommandErrorDescription": "Er heeft een probleem zich voorgedaan dat een protogen niet. Maak je geen zorgen, het is vermeld aan Frostbyte's team!",
+
+
+    "NSFWFilterMessage": "Je hebt zojuist een bericht gestuurd met expliciete inhoud, in een server waar dat niet mag. Als je expliciete inhoud wil sturen, moet dat in een kanaal dat gemarkeerd staat als leeftijdsgebonden kanaal.\n**Nauwkeurigheid: {confidence}%\nGeconden expliciete inhoud:**\n{detections}\n\nAls je denkt dat dit een fout is, neem dan contact op met een beheerder.",
+    "AntiHoistMessage": "Je hebt je naam veranderd zodat die bovenaan de ledenlijst komt te staan. Gelieve je naam te veranderen. Als je denkt dat dit een fout is, neem dan contact op met een beheerder.",
+
+    "PingMessage": "Ping aan het controleren...",
+    "PingEditMessage": "Even wachten nog! :eyes:",
+    "PingFinalMessageTitle": "Pong!",
+    "PingFinalMessageDescription": "**Hartslag:** {heartbeat}\n**Bericht versturen:** {msg}\n**Bericht bewerken:** {edit}\n**Database:** {db}",
+    "PingCommandDescription": "Controleerd de vertraging van de bot.",
+
+
+    "InviteMessage": "Voeg me aan je server toe!",
+    "InviteMessageTitle": "Voeg de bot toe!",
+    "InviteSupportMessage": "Wordt lid van de ondersteuningsserver!",
+    "InviteSupportDeveloperMessage": "Ondersteun de ontwikkelaars!",
+    "ClickHere": "[Klik hier]({link})",
+
+
+    "StatsTitle": "Botstatistieken",
+    "StatsPingTitle": "Ping",
+    "StatsPingDescription": "{ping}ms",
+    "StatsUptimeTitle": "Uptime",
+    "StatsUptimeDescription": "{days} dagen, {hours} uren, {minutes} minuten, {seconds} seconden",
+    "StatsSystemUsageTitle": "Systeemgebruik",
+    "StatsSystemUsageDescription": "Geheugen: {used}B / {total}B ({available}B beschikbaar)\nCPU: {cpu}%\nThreads: {threads}",
+    "StatsNetworkUsageTitle": "Netwerkgebruik",
+    "StatsNetworkUsageDescription": "Download: {download}B\nUpload: {upload}B",
+    "StatsServersTitle": "Servers",
+    "StatsShardsTitle": "Shards",
+    "StatsCogsTitle": "Cogs",
+    "StatsCommandsTitle": "Opdrachten",
+    "StatsDeployedTitle": "Inzet",
+    "StatsVersionTitle": "Versie",
+    "StatsLibraryTitle": "Softwarebibliotheekversies",
+    "StatsLibraryDescription": "Python: {python}\ndiscord.py: {discord}\n",
+
+
+    "AvatarTitle": "{username}'s profielfoto",
+
+
+    "UserInfoTitle": "{username}'s informatie",
+    "UserInfoJoined": "Lid geworden op",
+    "UserInfoRegistered": "Account gemaakt op",
+    "UserInfoRoles": "Rollen (**{count}**)",
+    "UserInfoNickname": "Bijnaam",
+    "UserInfoPronouns": "Voornaamwoorden (Engels)",
+    "UserInfoBadges": "Insignes",
+    "UserInfoBadgesNone": "Geen",
+    "UserInfoPronounsUnavailable": "PronounDB is op het moment onbereikbaar.",
+    "UserInfoPronounsFooter": "Voornaamwoorden verstrekt door https://pronoundb.org.",
+    "UserInfoReputation": "Reputatie",
+    "UserInfoReputationPercentage": "**{total_percentage}%** Op {mutual} ({mutual_percentage}%) wederzijdse servers zijn ze verbannen op {banned} servers ({banned_percentage}%)",
+
+    "ConfigTitle": "Instellingen",
+    "ConfigDescription": "De instellinen voor deze server.",
+    "Active": "Actief",
+    "Inactive": "Inactief",
+    "ConfigNSFWTitle": "Expliciete-inhoudsfilter",
+    "ConfigPrefixTitle": "Voorvoegsel",
+    "ConfigLanguageTitle": "Taal",
+    "ConfigAntiHoistTitle": "Anti-ledenlijsthijsen",
+    "ConfigAntiInviteTitle": "Anti-Uitnodiging",
+    "ConfigRaidModeTitle": "Invalmodus",
+    "ConfigWelcomeTitle": "Welkomstbericht",
+    "ConfigLeaveTitle": "Verlatingsbericht",
+
+
+    "PrefixCurrent": "Het huidige voorvoegsel voor deze server is `{prefix}`.",
+    "PrefixSet": "Het voorvoegsel voor deze server is veranderd naar `{prefix}`.",
+
+
+    "LanguageCurrent": "De huidige taal voor deze server is `{lang}`.",
+    "LanguageAlreadySet": "De taal voor deze server is al `{lang}`.",
+    "LanguageUSAEasterEgg": "GOD ZEGEN AMERIKA",
+    "LanguageSet": "De taal voor deze server is veranderd naar `{lang}`.",
+    "LanguageListTitle": "Beschikbare Talen",
+    "LanguageListDescription": "De volgende talen zijn beschikbaar. Bebruik ``language <language>`` om de taal te veranderen.\nHoud er rekening mee dat het zo kan zijn dat sommige talen niet volledig vertaald zijn.",
+    "LanguageInvalid": "Dat is geen geldige taal. Gebruik ``language list`` om een lijst van beschikbare talen te verkrijgen.",
+    "LanguageInvalidCloseMatch": "Dat is geen geldige taal. Bedoelde je ``{language}`` ({flag} {short_name})?",
+    "LanguageNotTranslated": "De geselecteerde taal is niet volledig vertaald. {totalKeys} / {fullTotal} stukken tekst zijn al vertaald ({translated}%). Als je door wil gaan, stuur 'yes'.",
+    "LanguageNotTranslatedTimeout": "Je hebt niet op tijd geäntwoord. Probeer opnieuw.",
+    "LanguageNotTranslatedNo": "De taal was niet veranderd.",
+
+    "NSFWCurrent": "De huidige expliciete-inhoudsfilterstrengheid is `{severity}`.",
+    "NSFWSet": "De expliciete-inhoudsfilterstrengheid is veranderd naar `{severity}`.",
+    "NSFWInvalid": "Dat is geen geldige strengheid. Gebruik een getal tussen de 0 en 100. (0 is het strengste, 100 is het minst streng)",
+
+    
+    "AntiHoistSet": "De anti-ledenlijsthijsinstelling is veranderd naar `{enabled}`.",
+
+    "WelcomeSet": "Het welkomstkanaal is veranderd naar {channel}.",
+    "WelcomeDisabled": "Welkomstberichten zijn uitgeschakeld.",
+
+
+    "LeaveSet": "Het Verlatingskanaal is veranderd naar {channel}.",
+    "LeaveDisabled": "Verlatingsberichten zijn uitgeschakeld.",
+
+
+    "HelpTitle": "Opdrachten",
+    "HelpDescription": "De volgende opdrachten zijn beschikbaar.",
+    "HelpFooter": "Gebruik ``help <command>`` om meer informatie over een opdracht te krijgen.",
+    "HelpCommandUnavailable": "Deze opdracht is niet beschikbaar.",
+    "HelpCommandNotFound": "Opdracht niet gevonden.",
+    "HelpNoDescription": "Geen omschrijving beschikbaar.",
+    "HelpCommandAliasesTitle": "Aliassen",
+    "HelpCommandUsageTitle": "Gebruik",
+    "HelpCommandChecksTitle": "Controles",
+    "HelpCommandSubcommandsTitle": "Onderopdrachten",
+
+
+    "NSFWNoResults": "Geen resultaten.",
+    "NSFWError": "Er was een error in het opvragen van data. Probeer het later opnieuw.",
+    "NSFWNoUsableResults": "Geen bruikbare resultaten. Met Discord's beperkingen, filmpjes en geluidsbestanden kunnen niet worden gebruikt. Onthouw dat sommige resultaten zijn weggelaten vanwege Discord's servicevoorwaarden.",
+
+    "InfoTitle": "Frostbyte, met liefde gemaakt door Robyn.",
+    "InfoDescription": "Frostbyte is een multifunctionele bot met veel voorzieningen, waaronder serverbeheer, lol en nutsvoorzieningen. De bot is gelanceerd in 2020 na een jaar ontwikkeling, tegengewerkd door de COVID-19 pandemie, en is sinds steeds bijgewerkt en verbeterd. Frostbyte is momenteel in meer dan 500 servers, and is in gebruik door meer dan 1000 gebruikers.\nCheck voor meer informatie de [website](https://frostbyte.jackelope.gay/).",
+
+    "UserConfigTitle": "Gebruikersinstellingen",
+    "UserConfigDescription": "De instellingen voor deze gebruiker.",
+    "UserConfigLanguageTitle": "Taal",
+    "UserConfigLanguageCurrent": "De huidige taal voor deze gebruiker is `{lang}`.",
+    "UserConfigLanguageAlreadySet": "De taal voor deze gebruiker is al `{lang}`.",
+    "UserConfigLanguageSet": "De taal voor deze gebruiker is veranderd naar `{lang}`.",
+    "UserConfigLanguageInvalid": "Dat is geen geldige taal. Gebruik ``userconfig language list`` om een lijst van beschikbare talen te verkrijgen.",
+    "UserConfigCountryTitle": "Land",
+    "UserConfigCountryCurrent": "Het huidige land van deze gebruiken is `{country}`.",
+    "UserConfigCountryAlreadySet": "Het land van deze gebruiker is al `{country}`.",
+    "UserConfigCountrySet": "Het land van deze gebruiker is veranderd naar `{country}`.",
+    "UserConfigCountryInvalid": "Dat is geen geldig land. Gelieve de Engelse naam van het land te gebruiken. Als het land dan nog steeds ongeldig is, wordt dan lid van de ondersteuningsserver, en vraag of het land aan de database toegevoegd kan worden.\nMomenteel beschikbare landen: \n{countries}",
+    "UserConfigCountryListTitle": "Beschikbare landen",
+    "UserConfigCountryListDescription": "De volgende landen zijn beschikbaar. Gebruik ``userconfig country <country>`` om  je land te veranderen.\nAls er een tall mist, wordt dan lid van de ondersteuningsserver, en vraag of het land aan de database toegevoegd kan worden. Houd er rekening mee dat we momenteel Rusland, China end Noord Korea wanwege geopolitieke redenen niet mogen toevoegen."
+}
