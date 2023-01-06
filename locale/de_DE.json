@@ -11,6 +11,8 @@
     "NotYetTranslated": "Noch nicht übersetzt",
     "NotYetTranslatedDescription": "Die ausgewählte Operation ist noch nicht übersetzt.",
 
+    "JoinMessage": "Not yet translated to German. Note for future translator: Specify that to switch to German, the user needs to use the ``{prefix}language de_DE`` command. Text that will be replaced: ``{prefix}`` (the bot's prefix), ``{support}`` (the support server invite link).",
+
     "CommandNotFoundClosestMatch": "Command ``{command}`` wurde nicht gefunden. Meintest du ``{closest_match}``?",
     "CommandNotFound": "Command ``{command}`` nicht gefunden.",
     "CommandDisabled": "Command ``{command}`` ist deaktiviert.",

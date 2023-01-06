@@ -12,6 +12,8 @@
     "NotYetTranslated": "Nog niet vertaald.",
     "NotYetTranslatedDescription": "The gevraagde handeling is not niet vertaald.",
 
+    "JoinMessage": "Not yet translated to Dutch. Note for future translator: Specify that to switch to Dutch, the user needs to use the ``{prefix}language nl_NL`` command. Text that will be replaced: ``{prefix}`` (the bot's prefix), ``{support}`` (the support server invite link).",
+
 
     "CommandNotFoundClosestMatch": "Opdracht ``{command}`` niet gevonden. Bedoelde je ``{closest_match}``?",
     "CommandNotFound": "Opdracht ``{command}`` niet gevonden.",

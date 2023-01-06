@@ -65,7 +65,7 @@ class StatsUpdater(commands.Cog):
 
     async def on_ready(self):
         # Check if the bot is running production
-        if self.bot.deployed.toLower() == "production":
+        if self.bot.user.id == 732233716604076075: # THe most shittiest way to check if the bot is running production, but checking deployment didnt work
             await self.bot.wait_until_ready()
             while self.bot.is_ready():
                 await self.update_stats()

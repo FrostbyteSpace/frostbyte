@@ -12,6 +12,8 @@
     "NotYetTranslated": "Not Yet Translated",
     "NotYetTranslatedDescription": "The requested operation is not yet translated.",
 
+    "JoinMessage": "Thank you for adding me to your server! If you need help, please use ``{prefix}help``. If you need support, please join the support server: {support}! To change language, please use ``{prefix}language``. Bear in mind that the command requires the ``Manage Server`` permission.",
+
     "CommandNotFoundClosestMatch": "Command ``{command}`` not found. Did you mean ``{closest_match}``?",
     "CommandNotFound": "Command ``{command}`` not found.",
     "CommandDisabled": "Command ``{command}`` is disabled.",

@@ -13,6 +13,8 @@
     "NotYetTranslated": "Aún no traducido",
     "NotYetTranslatedDescription": "La operación solicitada aún no está traducida.",
 
+    "JoinMessage": "Not yet translated to Spanish. Note for future translator: Specify that to switch to Spanish, the user needs to use the ``{prefix}language es_ES`` command. Text that will be replaced: ``{prefix}`` (the bot's prefix), ``{support}`` (the support server invite link).",
+
 
     "CommandNotFoundClosestMatch": "comando ``{command}`` no encontrado. ¿Quicistes decir ``{closest_match}``?",
     "CommandNotFound": "Comando ``{command}`` no encontrado.",

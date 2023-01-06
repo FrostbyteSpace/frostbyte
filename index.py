@@ -340,6 +340,7 @@ async def on_ready():
 
     # Define the support server
     bot.support_server = discord.utils.get(bot.guilds,id=747145595558297663)
+    bot.support_invite = "https://discord.gg/Mqcgca8"
     
     bot.database_active = True
     
@@ -512,14 +513,69 @@ async def on_guild_join(guild):
             new_template["prefix"] = "fbb."
     else:
             new_template["prefix"] = "fba."
-    bot.db.servers.update_one({"id": guild.id}, {"$set": new_template},upsert=True)
+            
+    # If the guild is in the database already, do nothing. Otherwise, add it. #
+    # This is to prevent the bot from overwriting the prefix if it is already in the database #
+    if not bot.db.servers.find_one({"id": guild.id}):
+        bot.db.servers.update_one({"id": guild.id}, {"$set": new_template},upsert=True)
     
     em = discord.Embed(title="Joined a new guild!", description=f"Guild name: {guild.name}\nGuild ID: {guild.id}\nMember count: {guild.member_count}\nShard ID: {guild.shard_id}", 
                        color=bot.main_color())
     em.set_thumbnail(url=guild.icon)
-    em.set_footer(text=f"Guild owner: {guild.owner} ({guild.owner.id})")
+    em.set_footer(text=f"Guild owner: {guild.owner} ({guild.owner.id}) • Guild count: {len(bot.guilds)}")
     await bot.join_log.send(embed=em)
     
+    # Send a message to the person who invited the bot, if possible (if the bot has audit log perms) #
+    # This is a bit of a hacky way of doing it, but it works #
+    target = None
+    try:
+        async for entry in guild.audit_logs(limit=1, action=discord.AuditLogAction.bot_add):
+            if entry.target == bot.user:
+                try:
+                    target = entry.user
+                except:
+                    pass
+        if target == None:
+            raise Exception("No target found") # This is to make the except block run #
+    except: # If the bot doesn't have audit log perms, just grab the first channel that isnt under a category called "Important" (case insensitive) and that the bot can send messages to #
+        for channel in guild.channels:
+            if not channel.category:
+                if channel.permissions_for(guild.me).send_messages:
+                    target = channel
+                    break
+            else:
+                if channel.category.name.lower() != "important":
+                    if channel.permissions_for(guild.me).send_messages:
+                        target = channel
+                        break
+                
+    if target:
+        em = discord.Embed(title="Frostbyte",color=bot.main_color())
+        # Load en_GB, fr_FR, nl_NL, pl_PL and de_DE for localization messages #
+        with open("locale/en_GB.json") as f:
+            en_GB = json.load(f)
+        with open("locale/fr_FR.json") as f:
+            fr_FR = json.load(f)
+        with open("locale/es_ES.json") as f:
+            es_ES = json.load(f)
+        with open("locale/nl_NL.json") as f:
+            nl_NL = json.load(f)
+        with open("locale/pl_PL.json") as f:
+            pl_PL = json.load(f)
+        with open("locale/de_DE.json") as f:
+            de_DE = json.load(f)
+            
+        # I know this is really bad, but I don't know how to do it better #
+        em.add_field(name=":flag_gb: :flag_us: :flag_ca: :flag_au: English", value=en_GB["JoinMessage"].format(prefix=new_template["prefix"], support=bot.support_invite), inline=False)
+        #em.add_field(name=":flag_fr: French", value=fr_FR["JoinMessage"].format(prefix=new_template["prefix"], support=bot.support_invite), inline=False) # Uncomment when French is done
+        em.add_field(name=":flag_es: Spanish", value=es_ES["JoinMessage"].format(prefix=new_template["prefix"], support=bot.support_invite), inline=False)
+        em.add_field(name=":flag_nl: Dutch", value=nl_NL["JoinMessage"].format(prefix=new_template["prefix"], support=bot.support_invite), inline=False)
+        #em.add_field(name=":flag_pl: Polish", value=pl_PL["JoinMessage"].format(prefix=new_template["prefix"], support=bot.support_invite), inline=False) # Uncomment when Polish is done
+        em.add_field(name=":flag_de: German", value=de_DE["JoinMessage"].format(prefix=new_template["prefix"], support=bot.support_invite), inline=False)
+        
+        em.set_thumbnail(url=bot.user.avatar)
+        await target.send(embed=em)
+        
 @bot.event
 async def on_guild_remove(guild):
     if not bot.is_ready():
