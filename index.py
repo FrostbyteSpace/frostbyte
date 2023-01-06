@@ -785,24 +785,11 @@ async def on_command_error(ctx, error):
             pass
         await ctx.reply(embed=error_em)
         # If the owner ran the command, abort, as we don't want to log the error #
-        if commands.is_owner():
-           return
-        
-        # error_em = discord.Embed(title="Error Handler", description=f"```py\n{tb}```", color=0xff0000, timestamp=datetime.datetime.utcnow())
-        # error_em.add_field(name="Command", value=f"``{ctx.message.content}``")
-        # error_em.add_field(name="User", value=f"{ctx.author} ({ctx.author.id})")
-        # if ctx.guild: # Don't add guild info if the command was run in DMs
-        #     error_em.add_field(name="Guild", value=f"{ctx.guild} ({ctx.guild.id})")
-        #     error_em.add_field(name="Channel", value=f"{ctx.channel} ({ctx.channel.id})")
-        #     error_em.add_field(name="Message", value=f"[Jump to message]({ctx.message.jump_url})")
-        #     # Add a field for the current language of the guild, using the locale's english name #
-        #     locale = bot.db.servers.find_one({"id": ctx.guild.id})["locale"]
-        #     with open(f"locale/{locale}.json", "r") as f:
-        #         locale_data = json.load(f)
-                
-        #     error_em.add_field(name="Locale Set", value=locale_data["meta"]["flag"] + " " + locale_data["meta"]["english_name"])
-        # await bot.error_log.send(embed=error_em)
-        
+        # if commands.is_owner():
+        #    return
+        if ctx.author.id == 478675118332051466 or ctx.author.id == 659488296820408355: # I hate this but it's the only way to do it #
+            return
+
         # This is where shit gets complicated. #
         # We need to "compile" a "error dump", add it to the database with an ID, then send it to the channel, with some contextual information #
         # This should provide as much information as possible, while also being easy to read #

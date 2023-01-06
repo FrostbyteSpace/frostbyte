@@ -10,7 +10,7 @@ import random
 with open('./locale/countries.json', 'r') as f:
     countries = json.load(f)
 
-class UserConfig(commands.Cog):
+class Configuration(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
@@ -289,4 +289,4 @@ class UserConfig(commands.Cog):
             
         
 async def setup(bot):
-    await bot.add_cog(UserConfig(bot))
+    await bot.add_cog(Configuration(bot))
