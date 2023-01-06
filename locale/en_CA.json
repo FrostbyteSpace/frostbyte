@@ -13,6 +13,7 @@
     "NotYetTranslated": "Not Yet Translated",
     "NotYetTranslatedDescription": "The requested operation is not yet translated.",
 
+    "JoinMessage": "Not Used in this locale. Translation is in en_GB.json. If you see this, please contact a developer.",
 
     "CommandNotFoundClosestMatch": "Command ``{command}`` not found. Did you mean ``{closest_match}``?",
     "CommandNotFound": "Command ``{command}`` not found.",

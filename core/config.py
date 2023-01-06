@@ -58,7 +58,7 @@ class Configuration(commands.Cog):
             await ctx.send_locale(message="UserConfigLanguageCurrent", lang=lang["meta"]["short_name"])
         elif language == "list":
           # Invoke the command "language list", to save on time, while bypassing checks #
-          await self.bot.invoke(ctx, "language list")
+          await self.bot.invoke(ctx, "config language list")
         # elif language == config["language"]:
         #     await ctx.send_locale(message="UserConfigLanguageAlreadySet",lang=language)
         else:
@@ -101,7 +101,7 @@ class Configuration(commands.Cog):
                 await ctx.send(embed=embed)
                   
     @commands.has_guild_permissions(manage_guild=True)
-    @commands.command(brief="Shows the server's config")
+    @commands.group(brief="Server configuration commands", invoke_without_command=True,name="serverconfig",aliases=["config"])
     async def config(self, ctx):
         config = self.bot.db.servers.find_one({"id": ctx.guild.id})
         em = discord.Embed(title=await ctx.get_locale(message="ConfigTitle"), description=await ctx.get_locale(message="ConfigDescription") ,color=self.bot.main_color())
@@ -121,7 +121,7 @@ class Configuration(commands.Cog):
         await ctx.send(embed=em)
         
     @commands.has_guild_permissions(manage_guild=True)
-    @commands.command(brief="Sets the server's prefix")
+    @config.command(brief="Sets the server's prefix")
     async def prefix(self, ctx, prefix = None):
         if prefix == None:
             await ctx.send_locale(message="PrefixCurrent", prefix=self.bot.db.servers.find_one({"id": ctx.guild.id})["prefix"])
@@ -130,7 +130,7 @@ class Configuration(commands.Cog):
         await ctx.send_locale(message="PrefixSet", prefix=prefix)
         
     @commands.has_guild_permissions(manage_guild=True)
-    @commands.command(brief="Sets the server's language")
+    @config.command(brief="Sets the server's language")
     async def language(self, ctx, lang = None):
         if lang == None:
             await ctx.send_locale(message="LanguageCurrent", lang=self.bot.db.servers.find_one({"id": ctx.guild.id})["locale"])
@@ -239,7 +239,7 @@ class Configuration(commands.Cog):
                     
     @commands.has_guild_permissions(manage_guild=True)
     @commands.bot_has_permissions(manage_messages=True)
-    @commands.command(brief="Toggles the NSFW filter, or sets it to a specific severity")
+    @config.command(brief="Toggles the NSFW filter, or sets it to a specific severity")
     async def nsfw(self, ctx, severity = None):
         if severity == None:
             await ctx.send_locale(message="NSFWCurrent", severity=self.bot.db.servers.find_one({"id": ctx.guild.id})["nsfwFilter"]["severity"])
@@ -261,13 +261,13 @@ class Configuration(commands.Cog):
     @commands.has_guild_permissions(manage_guild=True)
     @commands.bot_has_guild_permissions(manage_nicknames=True)
     @commands.has_guild_permissions(manage_nicknames=True)
-    @commands.command(brief="Toggles the anti-hoist filter")
+    @config.command(brief="Toggles the anti-hoist filter")
     async def antihoist(self, ctx):
         self.bot.db.servers.update_one({"id": ctx.guild.id}, {"$set": {"antiHoist": not self.bot.db.servers.find_one({"id": ctx.guild.id})["antiHoist"]}})
         await ctx.send_locale(message="AntiHoistSet", enabled=not self.bot.db.servers.find_one({"id": ctx.guild.id})["antiHoist"])
         
     @commands.has_guild_permissions(manage_guild=True)
-    @commands.command(brief="Sets (or disables) the welcome channel")
+    @config.command(brief="Sets (or disables) the welcome channel")
     async def welcome(self, ctx, *, channel : discord.TextChannel = None):
         if channel == None:
             self.bot.db.servers.update_one({"id": ctx.guild.id}, {"$set": {"welcome": {"enabled": False, "channel": None}}})
@@ -278,7 +278,7 @@ class Configuration(commands.Cog):
     
           
     @commands.has_guild_permissions(manage_guild=True)
-    @commands.command(brief="Sets (or disables) the leave channel")
+    @config.command(brief="Sets (or disables) the leave channel")
     async def leave(self, ctx, *, channel : discord.TextChannel = None):
         if channel == None:
             self.bot.db.servers.update_one({"id": ctx.guild.id}, {"$set": {"leave": {"enabled": False, "channel": None}}})

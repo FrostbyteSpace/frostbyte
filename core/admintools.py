@@ -355,10 +355,10 @@ class AdminTools(commands.Cog):
         # Generate the image
         if function == "welcome":
             image = await image_generation.generate_welcome_image(ctx.author, ctx.guild, None)
-        elif function == "welcome_compressed": 
-            image = await image_generation.generate_welcome_image(ctx.author, ctx.guild, None, "webp")
+        elif function == "welcome_background": 
+            image = await image_generation.generate_welcome_image(ctx.author, ctx.guild, "https://media.discordapp.net/attachments/747145826765242459/1061005236828909618/a82080c2-895d-4ce8-bb5b-8a7274881cd7.jpg")
         elif function == "leave":
-            image = await image_generation.generate_leave_image(ctx.author, ctx.guild)
+            image = await image_generation.generate_leave_image(ctx.author, ctx.guild, "https://media.discordapp.net/attachments/747145826765242459/1061005236828909618/a82080c2-895d-4ce8-bb5b-8a7274881cd7.jpg")
         # Get the time after the image is generated
         after = time.time()
             

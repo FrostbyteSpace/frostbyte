@@ -67,13 +67,13 @@ class Utility(commands.Cog):
         for guild in self.bot.guilds:
             if discord.utils.get(guild.members, id=member.id):
                 mutual += 1
-                # Do this in a try/except block because the bot might not have the ban permission
-                try:
-                    async for ban in guild.bans():
-                        if ban.user.id == member.id:
-                            banned += 1
-                except:
-                    pass # We don't have the ban permission, so we can't check
+            # Do this in a try/except block because the bot might not have the ban permission
+            try:
+                async for ban in guild.bans():
+                    if ban.user.id == member.id:
+                        banned += 1
+            except:
+                pass # We don't have the ban permission, so we can't check
                 
         # Then flatten it into a percentage
         # For mutual servers, get the percentage of the bot's guilds

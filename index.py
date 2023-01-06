@@ -560,8 +560,8 @@ async def on_guild_join(guild):
             es_ES = json.load(f)
         with open("locale/nl_NL.json") as f:
             nl_NL = json.load(f)
-        with open("locale/pl_PL.json") as f:
-            pl_PL = json.load(f)
+        # with open("locale/pl_PL.json") as f:
+        #     pl_PL = json.load(f)
         with open("locale/de_DE.json") as f:
             de_DE = json.load(f)
             
@@ -586,7 +586,7 @@ async def on_guild_remove(guild):
     em = discord.Embed(title="Left a guild!", description=f"Guild name: {guild.name}\nGuild ID: {guild.id}\nMember count: {guild.member_count}\nShard ID: {guild.shard_id}", 
                        color=bot.main_color())
     em.set_thumbnail(url=guild.icon)
-    em.set_footer(text=f"Guild owner: {guild.owner} ({guild.owner.id})")
+    em.set_footer(text=f"Guild owner: {guild.owner} ({guild.owner.id}) • Guild count: {len(bot.guilds)}")
     await bot.join_log.send(embed=em)
 
 
