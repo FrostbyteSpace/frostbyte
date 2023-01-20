@@ -68,7 +68,10 @@ class NSFW(commands.Cog):
                                 retries += 1
                     # Now scream. #
                     if len(data) > 0:
-                        em = discord.Embed(description=f"[{chosen['description'] if chosen['description'] else 'No description available'}]({chosen['sources'][0]})", color=self.bot.main_color(),url=chosen['sources'][0])
+                        try:
+                            em = discord.Embed(description=f"[{chosen['description'] if chosen['description'] else 'No description available'}]({chosen['sources'][0]})", color=self.bot.main_color(),url=chosen['sources'][0])
+                        except:
+                            em = discord.Embed(description=f"{chosen['description'] if chosen['description'] else 'No description available'}", color=self.bot.main_color())
                         em.set_image(url=chosen["file"]["url"])
                         em.set_footer(text=f"Score: {chosen['score']['total']} | Artist: {chosen['tags']['artist'][0]} | Rating: {chosen['rating']}")
                         await ctx.send(embed=em)

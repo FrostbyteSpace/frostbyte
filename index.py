@@ -558,8 +558,8 @@ async def on_guild_join(guild):
         # Load en_GB, fr_FR, nl_NL, pl_PL and de_DE for localization messages #
         with open("locale/en_GB.json") as f:
             en_GB = json.load(f)
-        with open("locale/fr_FR.json") as f:
-            fr_FR = json.load(f)
+        # with open("locale/fr_FR.json") as f:
+        #     fr_FR = json.load(f)
         with open("locale/es_ES.json") as f:
             es_ES = json.load(f)
         with open("locale/nl_NL.json") as f:
