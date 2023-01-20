@@ -14,6 +14,8 @@
 
     "JoinMessage": "Thank you for adding me to your server! If you need help, please use ``{prefix}help``. If you need support, please join the support server: {support}! To change language, please use ``{prefix}language``. Bear in mind that the command requires the ``Manage Server`` permission.",
 
+    "AntiCapsSpam": "You have just sent a message that contains too many capital letters. Please don't spam caps.",
+
     "CommandNotFoundClosestMatch": "Command ``{command}`` not found. Did you mean ``{closest_match}``?",
     "CommandNotFound": "Command ``{command}`` not found.",
     "CommandDisabled": "Command ``{command}`` is disabled.",

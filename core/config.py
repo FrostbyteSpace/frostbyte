@@ -110,7 +110,7 @@ class Configuration(commands.Cog):
         with open(f"./locale/{config['locale']}.json", "r") as f:
             lang = json.load(f)
         em.add_field(name=await ctx.get_locale(message="ConfigLanguageTitle"), value=f"{lang['meta']['flag']} {lang['meta']['short_name']}")
-        em.add_field(name=await ctx.get_locale(message="ConfigAntiHoistTitle"), value=(await ctx.get_locale(message="Active") if config["antiHoist"] else await ctx.get_locale(message="Inactive")))
+        em.add_field(name=await ctx.get_locale(message="ConfigAntiHoistTitle"), value=(await ctx.get_locale(message="Active") if config["antiHoist"]["enabled"] else await ctx.get_locale(message="Inactive")))
         em.add_field(name=await ctx.get_locale(message="ConfigAntiInviteTitle"), value=(await ctx.get_locale(message="Active") if config["antiInvite"]["enabled"] else await ctx.get_locale(message="Inactive")))
         #em.add_field(name=await ctx.get_locale(message="ConfigRaidModeTitle"), value=(await ctx.get_locale(message="Active") if config["raidMode"]["enabled"] else await ctx.get_locale(message="Inactive")))
         # TODO: Finish raid mode.

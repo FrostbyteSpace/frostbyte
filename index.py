@@ -134,6 +134,10 @@ db_template = {
             "image": None,
             "text": None,
         }
+    },
+    "antiCapsSpam": {
+        "enabled": False,
+        "maxAllowed": 5
     }
 }
 
@@ -453,7 +457,7 @@ async def on_ready():
     #termcolor.cprint("Started status loop")
     
     # Start the database integrity checker
-    #bot.loop.create_task(database_integrity_checker())
+    bot.loop.create_task(database_integrity_checker())
     #debug_print("Started database integrity checker")
     
     # Check if the webhook server is running by pinging it
@@ -635,6 +639,25 @@ async def on_message(ctx):
                 return
     except:
         pass 
+    
+    # Anti Caps Spam #
+    try:
+        if bot.db.servers.find_one({"id": ctx.guild.id})["antiCapsSpam"]["enabled"]:
+            # If theres more than the specified amount of caps next to each other, delete the message #
+            # Ignoring non-letters #
+            caps = 0
+            for char in ctx.content:
+                if char.isupper():
+                    caps += 1
+                else:
+                    if caps >= bot.db.servers.find_one({"id": ctx.guild.id})["antiCapsSpam"]["maxAllowed"]:
+                        await ctx.delete()
+                        await ctx.channel.send(f"{ctx.author.mention} {await ctx.get_locale(message='AntiCapsSpamMessage')}")
+                        return
+                    else:
+                        caps = 0
+    except:
+        pass
     
     
     # Auto Response #
