@@ -4,7 +4,8 @@
         "short_name": "Español",
         "english_name": "Spain",
         "code": "ES",
-        "flag": ":flag_es:"    
+        "flag": ":flag_es:",
+        "denonym": "España"  
     },
 
     

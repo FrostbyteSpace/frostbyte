@@ -4,7 +4,8 @@
         "short_name": "Deutschland",
         "english_name": "Germany",
         "code": "DE",
-        "flag": ":flag_de:"
+        "flag": ":flag_de:",
+        "denonym": "Deutsch"
     },
     "NotImplemented": "Noch nicht implementiert",
     "NotImplementedDescription": "Die ausgewählte Operation ist noch nicht unterstützt.",

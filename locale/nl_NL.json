@@ -4,7 +4,8 @@
         "short_name": "Nederland",
         "english_name": "The Netherlands",
         "code": "NL",
-        "flag": ":flag_nl:"
+        "flag": ":flag_nl:",
+        "denonym": "Nederlander"
     },
     
     "NotImplemented": "Niet geïmplementeerd",

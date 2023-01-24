@@ -4,7 +4,8 @@
         "short_name": "Cwoudtopia",
         "english_name": "Cloudtopia",
         "code": "OWO",
-        "flag": "<:flag_CL:1029470150501605378>"
+        "flag": "<:flag_CL:1029470150501605378>",
+        "denonym": "Cwoudtopian"
     },
     "NotImplemented": "Not Impwemented",
     "NotImplementedDescription": "The wequested opewation is nyot impwemented.",

@@ -4,7 +4,8 @@
         "short_name": "France",
         "english_name": "France",
         "code": "FR",
-        "flag": ":flag_fr:"
+        "flag": ":flag_fr:",
+        "denonym": "Français"
     },
     "NotYetTranslated": "Pas encore traduit."
 }

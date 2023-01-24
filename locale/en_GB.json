@@ -4,7 +4,8 @@
         "short_name": "United Kingdom",
         "english_name": "United Kingdom",
         "code": "GB",
-        "flag": ":flag_gb:"
+        "flag": ":flag_gb:",
+        "denonym": "British English"
     },
 
     "NotImplemented": "Not Implemented",
@@ -85,6 +86,9 @@
     "ConfigRaidModeTitle": "Raid Mode",
     "ConfigWelcomeTitle": "Welcome Message",
     "ConfigLeaveTitle": "Leave Message",
+    "ConfigAntiCapsTitle": "Anti-Caps Spam",
+    "ConfigAutoResponseTitle": "Auto-Response",
+    "ConfigModLogTitle": "Moderation Log",
 
     "PrefixCurrent": "The current prefix is `{prefix}`.",
     "PrefixSet": "The prefix has been set to `{prefix}`.",

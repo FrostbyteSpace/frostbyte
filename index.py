@@ -138,6 +138,14 @@ db_template = {
     "antiCapsSpam": {
         "enabled": False,
         "maxAllowed": 5
+    },
+    "modLog": {
+        "enabled": False,
+        "channel": None,
+        "modular": { # This is a list of all the events that can be logged. Event names are the same as the ones in the audit log.
+            "ban": True,
+            "unban": True
+        }
     }
 }
 

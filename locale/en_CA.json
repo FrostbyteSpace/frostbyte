@@ -4,7 +4,8 @@
         "short_name": "Canada",
         "english_name": "Canada",
         "code": "CA",
-        "flag": ":flag_ca:"
+        "flag": ":flag_ca:",
+        "denonym": "Canadian English"
     },
 
 

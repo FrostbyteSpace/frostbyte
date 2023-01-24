@@ -4,7 +4,8 @@
         "short_name": "USA",
         "english_name": "United States of America",
         "code": "US",
-        "flag": ":flag_us:"
+        "flag": ":flag_us:",
+        "denonym": "Simplified English"
     },
 
 

@@ -18,8 +18,8 @@ class Configuration(commands.Cog):
     async def userconfig(self, ctx):
         # Change the message content to "userconfig show" and dispatch it
         # Hacky yes, but it works
-        ctx.message.content = "userconfig show"
-        await self.bot.dispatch("message", ctx.message)
+        ctx.message.content = f'{self.bot.db.servers.find_one({"id": ctx.guild.id})["prefix"]}userconfig show'
+        self.bot.dispatch("message", ctx.message)
         
     @userconfig.command(brief="Shows your current user configuration")
     async def show(self, ctx):
@@ -27,11 +27,22 @@ class Configuration(commands.Cog):
         if not config:
             self.bot.db.users.insert_one({"id": ctx.author.id, "country": "Unknown"})
             config = self.bot.db.users.find_one({"id": ctx.author.id})
-        em = discord.Embed(title="User Configuration", description=f"Here is your current user configuration, {ctx.author.mention}", color=self.bot.main_color())
-        em.add_field(name="Country", value=config["country"])
+        
+        em = discord.Embed(title=await ctx.get_locale(message="UserConfigTitle"), description=await ctx.get_locale(message="UserConfigDescription"), color=self.bot.main_color())
+        
+        em.add_field(name=await ctx.get_locale(message="UserConfigCountryTitle"), value=config["country"])
         try:
-            em.add_field(name="Primary Language", value=config["language"])
+            # Open the language file and get the language name and flag #
+            with open(f"locale/{config['language']}.json") as f:
+                lang = json.load(f)
+            
+            flag = lang["meta"]["flag"]
+            denonym = lang["meta"]["denonym"]
+            
+            em.add_field(name=await ctx.get_locale(message="UserConfigLanguageTitle"), value=f"{flag} {denonym}")
         except: pass # No language set
+        
+        em.set_thumbnail(url="https://cdn.discordapp.com/attachments/1030143502912344114/1067460562709139536/Frostbyte-Userconfig.png")
         
         await ctx.send(embed=em)
         
@@ -116,6 +127,15 @@ class Configuration(commands.Cog):
         # TODO: Finish raid mode.
         em.add_field(name=await ctx.get_locale(message="ConfigWelcomeTitle"), value=(f"{await ctx.get_locale(message='Active')} (<#{config['welcome']['channel']}>)" if config["welcome"]["enabled"] else await ctx.get_locale(message="Inactive")))
         em.add_field(name=await ctx.get_locale(message="ConfigLeaveTitle"), value=(f"{await ctx.get_locale(message='Active')} (<#{config['leave']['channel']}>)" if config["leave"]["enabled"] else await ctx.get_locale(message="Inactive")))
+        em.add_field(name=await ctx.get_locale(message="ConfigAntiCapsTitle"), value=(await ctx.get_locale(message="Active") if config["antiCapsSpam"]["enabled"] else await ctx.get_locale(message="Inactive")))
+        em.add_field(name=await ctx.get_locale(message="ConfigAutoResponseTitle"), value=f"{await ctx.get_locale(message='Active')} ({len(config['autoResponse']['responses'])} responses)" if config["autoResponse"]["enabled"] else await ctx.get_locale(message="Inactive"))
+        em.add_field(name=await ctx.get_locale(message="ConfigModLogTitle"), value=(f"{await ctx.get_locale(message='Active')} (<#{config['modLog']['channel']}>)" if config["modLog"]["enabled"] else await ctx.get_locale(message="Inactive")))
+        
+        # Padding
+        em.add_field(name="\u200b", value="\u200b")
+        em.add_field(name="\u200b", value="\u200b")
+        
+        em.set_thumbnail(url="https://media.discordapp.net/attachments/1030143502912344114/1067448197267603526/Frostbyte-Config.png")
         
         
         await ctx.send(embed=em)
@@ -176,12 +196,7 @@ class Configuration(commands.Cog):
                 except asyncio.TimeoutError:
                     await ctx.send_locale(message="LanguageNotTranslatedTimeout")
                     return
-                if msg.content.lower() not in ["yes", "y", "ye", "yeah", "yep", "yup"]:
-                    await ctx.send_locale(message="LanguageNotTranslatedNo")
-                    return
-                # Check for foreign translations of "yes" #
-                # Currently for: German, French, Spanish, Polish and Dutch #
-                elif msg.content.lower() not in ["ja", "oui", "si", "tak", "ja"]:
+                if msg.content.lower() not in ["yes", "y", "ye", "yeah", "yep", "yup","ja", "oui", "si", "tak", "ja"]:
                     await ctx.send_locale(message="LanguageNotTranslatedNo")
                     return
                 
