@@ -184,21 +184,11 @@ class Informational(commands.Cog):
         time_since = time_since % 60
         min_since = min_since % 60
         hour_since = hour_since % 24
-
-        # em = discord.Embed(title="Bot Stats", color=self.bot.main_color())
-        # em.add_field(name="Ping", value=f"{round(self.bot.latency * 1000,2)}ms")
-        # em.add_field(name="Uptime", value=f"{day_since} days, {hour_since} hours, {min_since} minutes, {time_since} seconds")
-        # em.add_field(name="System Usage", value=f"Memory: {used_ram}B / {total_ram}B ({available_ram}B available)\nCPU: {cpu}%")
-        # em.add_field(name="Network Usage", value=f"Download: {psutil._common.bytes2human(psutil.net_io_counters().bytes_recv)}B\nUpload: {psutil._common.bytes2human(psutil.net_io_counters().bytes_sent)}B")
-        # em.add_field(name="Servers", value=len(self.bot.guilds))
-        # em.add_field(name="Shards", value=self.bot.shard_count)
-        # em.add_field(name="Cogs", value=len(self.bot.cogs))
-        # em.add_field(name="Commands", value=len(self.bot.commands))
-        # em.add_field(name="Threads", value=threading.active_count())
-        # em.add_field(name="Deployed", value=self.bot.deployed)
-        # em.add_field(name="Version", value=self.bot.version)
-        # em.add_field(name="Python Version", value=platform.python_version())
-        # em.add_field(name="Discord.py Version", value=discord.__version__)
+        
+        # Get the country where the bot is currently hosted #
+        async with aiohttp.ClientSession() as session:
+            async with session.get("http://ip-api.com/json") as r:
+                country = await r.json()
         
         # Use localised strings #
         em = discord.Embed(title=await ctx.get_locale(message="StatsTitle"), color=self.bot.main_color())
@@ -213,6 +203,12 @@ class Informational(commands.Cog):
         em.add_field(name=await ctx.get_locale(message="StatsDeployedTitle"), value=self.bot.deployed)
         em.add_field(name=await ctx.get_locale(message="StatsVersionTitle"), value=self.bot.version)
         em.add_field(name=await ctx.get_locale(message="StatsLibraryTitle"), value=await ctx.get_locale(message="StatsLibraryDescription",python=platform.python_version(),discord=discord.__version__))
+        em.add_field(name=await ctx.get_locale(message="StatsHostedTitle"), value=f":flag_{country['countryCode'].lower()}: {country['regionName']}, {country['country']}")
+        em.add_field(name=await ctx.get_locale(message="StatsISPTitle"), value=f"{country['isp']} ({country['as']})")
+        
+        #em.add_field(name="\u200b", value="\u200b")
+        
+        em.set_thumbnail(url="https://media.discordapp.net/attachments/1030143502912344114/1067910393202229369/Frostbyte-Info.png")
         
         await ctx.send(embed=em)
 
@@ -226,7 +222,7 @@ class Informational(commands.Cog):
             return
             
         em = discord.Embed(title=await ctx.get_locale(message="HelpTitle"), description=await ctx.get_locale(message="HelpDescription"), color=self.bot.main_color())
-        em.set_thumbnail(url=self.bot.user.avatar)
+        em.set_thumbnail(url="https://media.discordapp.net/attachments/1030143502912344114/1067910393202229369/Frostbyte-Info.png")
         em.set_footer(text=await ctx.get_locale(message="HelpFooter"))
         
         if command is None:   
@@ -289,6 +285,8 @@ class Informational(commands.Cog):
         #em = discord.Embed(title=await ctx.get_locale(message="PingFinalMessageTitle"), description=f"**Heartbeat:** {round(bot.latency * 1000,2)}ms\n**Message:** {msg_ping}\n**Edit:** {edit_ping}\n**Database:** {db_ping}", 
         em = discord.Embed(title=await ctx.get_locale(message="PingFinalMessageTitle"), description=await ctx.get_locale(message="PingFinalMessageDescription", heartbeat=f"{round(self.bot.latency * 1000,2)}ms" ,msg=msg_ping, edit=edit_ping, db=db_ping),
                         color=self.bot.main_color())
+
+        em.set_thumbnail(url="https://media.discordapp.net/attachments/1030143502912344114/1067906906246611035/Frostbyte-Stopwatch.png")
         await msg.edit(content=None, embed=em)
     
     @commands.command(name="invite", brief="Invite me to your server!")
@@ -298,6 +296,8 @@ class Informational(commands.Cog):
         em.add_field(name=await ctx.get_locale(message="InviteMessageTitle"), value=await ctx.get_locale(message="ClickHere",link=f"https://discord.com/api/oauth2/authorize?client_id={self.bot.user.id}&permissions=515600936550&scope=bot"))
         em.add_field(name=await ctx.get_locale(message="InviteSupportMessage"), value=await ctx.get_locale(message="ClickHere",link=f"https://discord.gg/Mqcgca8"))
         em.add_field(name=await ctx.get_locale(message="InviteSupportDeveloperMessage"), value=await ctx.get_locale(message="ClickHere",link=f"https://patreon.com/robynsnest"))
+        
+        em.set_thumbnail(url="https://media.discordapp.net/attachments/1030143502912344114/1067908370406842448/Frostbyte-AddUser.png")
         await ctx.send(embed=em)
         
     # Not to be confused with the cog name :upside_down: #

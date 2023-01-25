@@ -66,7 +66,7 @@ class Configuration(commands.Cog):
             # Open the language file and get the language name #
             with open(f"locale/{config['language']}.json") as f:
                 lang = json.load(f)
-            await ctx.send_locale(message="UserConfigLanguageCurrent", lang=lang["meta"]["short_name"])
+            await ctx.send_locale(message="UserConfigLanguageCurrent", lang=lang["meta"]["denonym"])
         elif language == "list":
           # Invoke the command "language list", to save on time, while bypassing checks #
           await self.bot.invoke(ctx, "config language list")
@@ -120,7 +120,7 @@ class Configuration(commands.Cog):
         em.add_field(name=await ctx.get_locale(message="ConfigNSFWTitle"), value=(await ctx.get_locale(message="Active") if config["nsfwFilter"]["enabled"] else await ctx.get_locale(message="Inactive")))
         with open(f"./locale/{config['locale']}.json", "r") as f:
             lang = json.load(f)
-        em.add_field(name=await ctx.get_locale(message="ConfigLanguageTitle"), value=f"{lang['meta']['flag']} {lang['meta']['short_name']}")
+        em.add_field(name=await ctx.get_locale(message="ConfigLanguageTitle"), value=f"{lang['meta']['flag']} {lang['meta']['denonym']}")
         em.add_field(name=await ctx.get_locale(message="ConfigAntiHoistTitle"), value=(await ctx.get_locale(message="Active") if config["antiHoist"]["enabled"] else await ctx.get_locale(message="Inactive")))
         em.add_field(name=await ctx.get_locale(message="ConfigAntiInviteTitle"), value=(await ctx.get_locale(message="Active") if config["antiInvite"]["enabled"] else await ctx.get_locale(message="Inactive")))
         #em.add_field(name=await ctx.get_locale(message="ConfigRaidModeTitle"), value=(await ctx.get_locale(message="Active") if config["raidMode"]["enabled"] else await ctx.get_locale(message="Inactive")))
@@ -291,7 +291,6 @@ class Configuration(commands.Cog):
             self.bot.db.servers.update_one({"id": ctx.guild.id}, {"$set": {"welcome": {"enabled": True, "channel": channel.id}}})
             await ctx.send_locale(message="WelcomeSet", channel=channel.mention)
     
-          
     @commands.has_guild_permissions(manage_guild=True)
     @config.command(brief="Sets (or disables) the leave channel")
     async def leave(self, ctx, *, channel : discord.TextChannel = None):
@@ -302,6 +301,124 @@ class Configuration(commands.Cog):
             self.bot.db.servers.update_one({"id": ctx.guild.id}, {"$set": {"leave": {"enabled": True, "channel": channel.id}}})
             await ctx.send_locale(message="LeaveSet", channel=channel.mention)
             
+    @commands.has_guild_permissions(manage_guild=True)
+    @config.group(brief="Commands for configuring the bot's auto responses", invoke_without_command=True)
+    async def autoresponse(self, ctx):
+        # List all auto responses #
+        # If there are none, tell the user #
+        responses = self.bot.db.servers.find_one({"id": ctx.guild.id})["autoResponse"]["responses"]
+        if len(responses) == 0:
+            await ctx.send_locale(message="AutoResponseListEmpty")
+            return
+        # Otherwise, list them #
+        # Making sure to list the placeholder variables #
+        em = discord.Embed(title="Auto Responses", description="List of all auto responses for this server", color=self.bot.main_color())
+        
+        for response in responses:
+            # Add a condition to format the trigger and response if its an array (an OR response) #
+            # Bare in mind there can be multiple OR responses #
+            if type(response["trigger"]) == list:
+                trigger = "``" + "`` OR ``".join(response["trigger"]) + "``"
+            else:
+                trigger = response["trigger"]
+            if type(response["response"]) == list:
+                response = "``" + "`` OR ``".join(response["response"]) + "``"
+            else:
+                response = "``" + response["response"] + "``"
+            em.add_field(name=trigger, value=response, inline=False)
+            
+        em.set_footer(text=f"Use ``{ctx.prefix}config autoresponse <add|remove|edit>`` to manage auto responses")
+        await ctx.send(embed=em)
+        
+    @commands.has_guild_permissions(manage_guild=True)
+    @autoresponse.command(brief="Adds an auto response")
+    async def add(self, ctx, trigger, *, response):
+        # Make sure the trigger isn't too long #
+        if len(trigger) > 100:
+            await ctx.send_locale(message="AutoResponseTriggerTooLong")
+            return
+        # Make sure the response isn't too long #
+        if len(response) > 500:
+            await ctx.send_locale(message="AutoResponseResponseTooLong")
+            return
+        # Make sure the trigger isn't too short #
+        if len(trigger) < 1:
+            await ctx.send_locale(message="AutoResponseTriggerTooShort")
+            return
+        # Make sure the response isn't too short #
+        if len(response) < 1:
+            await ctx.send_locale(message="AutoResponseResponseTooShort")
+            return
+        # Make sure the trigger doesn't already exist #
+        for response in self.bot.db.servers.find_one({"id": ctx.guild.id})["autoResponse"]["responses"]:
+            if response["trigger"] == trigger:
+                await ctx.send_locale(message="AutoResponseTriggerExists")
+                return
+        # Add the response #
+        self.bot.db.servers.update_one({"id": ctx.guild.id}, {"$push": {"autoResponse": {"trigger": trigger, "response": response}}})
+        await ctx.send_locale(message="AutoResponseAdded", trigger=trigger)
+        
+    @commands.has_guild_permissions(manage_guild=True)
+    @autoresponse.command(brief="Removes an auto response")
+    async def remove(self, ctx, *, trigger):
+        # Make sure the trigger exists #
+        for response in self.bot.db.servers.find_one({"id": ctx.guild.id})["autoResponse"]["responses"]:
+            if response["trigger"] == trigger:
+                # Remove the response #
+                self.bot.db.servers.update_one({"id": ctx.guild.id}, {"$pull": {"autoResponse": {"trigger": trigger, "response": response["response"]}}})
+                await ctx.send_locale(message="AutoResponseRemoved", trigger=trigger)
+                return
+        # Otherwise, tell the user #
+        await ctx.send_locale(message="AutoResponseTriggerDoesntExist")
+        
+    @commands.has_guild_permissions(manage_guild=True)
+    @autoresponse.command(brief="Edits an auto response")
+    async def edit(self, ctx, trigger, *, response):
+        # Make sure the trigger exists #
+        for response in self.bot.db.servers.find_one({"id": ctx.guild.id})["autoResponse"]["responses"]:
+            if response["trigger"] == trigger:
+                # Make sure the response isn't too long #
+                if len(response) > 500:
+                    await ctx.send_locale(message="AutoResponseResponseTooLong")
+                    return
+                # Make sure the response isn't too short #
+                if len(response) < 1:
+                    await ctx.send_locale(message="AutoResponseResponseTooShort")
+                    return
+                # Update the response #
+                self.bot.db.servers.update_one({"id": ctx.guild.id}, {"$set": {"autoResponse.$[elem].response": response}}, array_filters=[{"elem.trigger": trigger}])
+                await ctx.send_locale(message="AutoResponseEdit", trigger=trigger)
+                return
+        
+        # Otherwise, tell the user #
+        await ctx.send_locale(message="AutoResponseTriggerDoesntExist")
+    
+    @commands.has_guild_permissions(manage_guild=True)
+    @autoresponse.command(brief="Toggles auto responses")
+    async def toggle(self, ctx):
+        # Toggle auto responses #
+        self.bot.db.servers.update_one({"id": ctx.guild.id}, {"$set": {"autoResponse.enabled": not self.bot.db.servers.find_one({"id": ctx.guild.id})["autoResponse"]["enabled"]}})
+        # Tell the user #
+        if self.bot.db.servers.find_one({"id": ctx.guild.id})["autoResponse"]["enabled"]:
+            await ctx.send_locale(message="AutoResponseEnabled")
+        else:
+            await ctx.send_locale(message="AutoResponseDisabled")
+            
+    @commands.has_guild_permissions(manage_guild=True)
+    @config.group(brief="Commands for moderation logging")
+    async def logging(self, ctx):
+        if ctx.invoked_subcommand is None:
+            # If the subcommand is None, show the logging config #
+            # Get the logging config #
+            config = self.bot.db.servers.find_one({"id": ctx.guild.id})["modLog"]
+            # Make the embed #
+            em = discord.Embed(title="Logging", description="This server's logging configuration", color=self.bot.main_color())
+            em.add_field(name="Enabled", value=config["enabled"])
+            em.add_field(name="Channel", value=ctx.guild.get_channel(config["channel"]).mention if config["channel"] else "None")
+            em.add_field(name="Events", value="``" + "`` ``".join(config["modular"]) + "``" if config["modular"] else "None")
+            em.set_footer(text=f"Use ``{ctx.prefix}config logging <enable|disable|channel|events>`` to manage logging")
+            await ctx.send(embed=em)
+                
         
 async def setup(bot):
     await bot.add_cog(Configuration(bot))

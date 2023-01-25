@@ -58,6 +58,8 @@
     "StatsVersionTitle": "Version",
     "StatsLibraryTitle": "Library Versions",
     "StatsLibraryDescription": "Python: {python}\ndiscord.py: {discord}\n",
+    "StatsHostedTitle": "Hosted in",
+    "StatsISPTitle": "Internet Service Provider",
 
     "AvatarTitle": "{username}'s avatar",
 
@@ -148,5 +150,28 @@
     "UserConfigCountrySet": "The country has been set to `{country}`.",
     "UserConfigCountryInvalid": "That country is not valid. Please use the English spelling of the country. If it is still invalid, please join the support server, as the country may not be in the database.\nCurrent known countries: \n{countries}",
     "UserConfigCountryListTitle": "Available Countries",
-    "UserConfigCountryListDescription": "The following countries are available. Use ``userconfig country <country>`` to set the country.\nIf a country is missing, please join the support server. Note: We are currently not allowed to add Russia, China or North Korea due to various geopolitical reasons."
+    "UserConfigCountryListDescription": "The following countries are available. Use ``userconfig country <country>`` to set the country.\nIf a country is missing, please join the support server. Note: We are currently not allowed to add Russia, China or North Korea due to various geopolitical reasons.",
+
+    "AutoResponseTitle": "Auto-Response",
+    "AutoResponseTriggerTooLong": "The trigger is too long. Please keep it under 100 characters.",
+    "AutoResponseResponseTooLong": "The response is too long. Please keep it under 500 characters.",
+    "AutoResponseTriggerTooShort": "The trigger is too short. Please keep it over 1 character.",
+    "AutoResponseResponseTooShort": "The response is too short. Please keep it over 1 character.",
+    "AutoResponseTriggerExists": "That trigger already exists.",
+    "AutoResponseTriggerDoesNotExist": "That trigger does not exist.",
+    "AutoResponseTriggerAdded": "The trigger has been added.",
+    "AutoResponseTriggerRemoved": "The trigger has been removed.",
+    "AutoResponseTriggerListTitle": "Auto-Response Triggers",
+    "AutoResponseEnabled": "The auto-response has been enabled.",
+    "AutoResponseDisabled": "The auto-response has been disabled.",
+
+    "LoggingTitle": "Moderation Logs",
+    "LoggingDescription": "The logging configuration for this server.",
+    "LoggingChannelTitle": "Channel",
+    "LoggingChannelCurrent": "The current logging channel is {channel}.",
+    "LoggingChannelSet": "The logging channel has been set to {channel}.",
+    "LoggingChannelDisabled": "The logging channel has been disabled.",
+    "LoggingEventsTitle": "Events",
+    "LoggingEventsFooter": "Use ``{prefix}config logging <enable|disable|channel|events>`` to manage logging"
+
 }
