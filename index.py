@@ -761,6 +761,130 @@ async def on_message_edit(before, after):
         return
     bot.dispatch("message", after) # We *could* use .process_commands() here, but that would pose the risk of bypassing the NSFW filter and anti-invite #
 
+# Moderation Events #
+@bot.event
+async def on_message_delete(message):
+    if not bot.is_ready():
+        return
+    
+    # To prevent errors, we need to check if the message was sent in a guild #
+    if message.guild is None:
+        return
+    
+    # Check if the server has logging enabled and the module "messageDelete" enabled #
+    # "messageDelete" can not exist if never enabled, so we need to check if it exists aswell #
+    if bot.db.servers.find_one({"id": message.channel.guild.id})["modLog"]["enabled"]:
+        if bot.db.servers.find_one({"id": message.channel.guild.id})["modLog"]["modular"].get("messageDelete"):
+            # Get the channel #
+            channel = message.channel.guild.get_channel(bot.db.servers.find_one({"id": message.channel.guild.id})["modLog"]["channel"])
+            
+            # Get the locale #
+            locale = bot.db.servers.find_one({"id": message.channel.guild.id})["locale"]
+            with open(f"locale/{locale}.json", "r") as f:
+                locale = json.load(f)
+            
+            # Try and grab the person who deleted the message via audit logs #
+            # If it fails, use the author of the message #
+            try:
+                deletedBy = await message.guild.audit_logs(limit=1, action=discord.AuditLogAction.message_delete).flatten()
+                deletedBy = deletedBy[0].user
+            except:
+                deletedBy = message.author
+            
+            # Generate the embed #
+            embed = discord.Embed(
+                title=locale.get("ModLogMessageDeleteTitle"),
+                description=f"**{locale.get('Content')}**\n``{message.content}``\n**{locale.get('Channel')}**\n{message.channel.mention}\n**{locale.get('DeletedBy')}**\n{deletedBy.mention}",
+                color=0xff0000,
+                timestamp=datetime.datetime.utcnow()
+            )
+            embed.set_footer(text=f"Message ID: {message.id}")
+            embed.set_author(name=message.author, icon_url=message.author.avatar)
+            
+            embed.set_thumbnail(url="https://media.discordapp.net/attachments/1030143502912344114/1072279381407449118/Frostbyte-ModLog.png")
+            # Send the embed #
+            await channel.send(embed=embed)
+            
+@bot.event
+async def on_member_ban(guild, user):
+    if not bot.is_ready():
+        return
+    
+    # Check if the server has logging enabled and the module "memberBan" enabled #
+    # "memberBan" can not exist if never enabled, so we need to check if it exists aswell #
+    if bot.db.servers.find_one({"id": guild.id})["modLog"]["enabled"]:
+        if bot.db.servers.find_one({"id": guild.id})["modLog"]["modular"].get("memberBan"):
+            # Get the channel #
+            channel = guild.get_channel(bot.db.servers.find_one({"id": guild.id})["modLog"]["channel"])
+            
+            # Get the locale #
+            locale = bot.db.servers.find_one({"id": guild.id})["locale"]
+            with open(f"locale/{locale}.json", "r") as f:
+                locale = json.load(f)
+            
+            # Try and grab the person who banned the user via audit logs #
+            # If it fails, use the bot itself #
+            try:
+                bannedBy = await guild.audit_logs(limit=1, action=discord.AuditLogAction.ban).flatten()
+                bannedBy = bannedBy[0].user
+                reason = bannedBy[0].reason
+            except:
+                bannedBy = bot.user
+                reason = locale.get("NoReason")
+            
+            # Generate the embed #
+            embed = discord.Embed(
+                title=locale.get("ModLogMemberBanTitle"),
+                description=f"**{locale.get('User')}**\n{user.mention}\n**{locale.get('Moderator')}**\n{bannedBy.mention}\n**{locale.get('Reason')}**\n{reason}",
+                color=0xff0000,
+                timestamp=datetime.datetime.utcnow()
+            )
+            embed.set_footer(text=f"User ID: {user.id}")
+            embed.set_author(name=user, icon_url=user.avatar)
+            
+            embed.set_thumbnail(url="https://media.discordapp.net/attachments/1030143502912344114/1072279381407449118/Frostbyte-ModLog.png")
+            # Send the embed #
+            await channel.send(embed=embed)
+
+@bot.event
+async def on_member_unban(guild, user):
+    if not bot.is_ready():
+        return
+    
+    # Check if the server has logging enabled and the module "memberUnban" enabled #
+    # "memberUnban" can not exist if never enabled, so we need to check if it exists aswell #
+    if bot.db.servers.find_one({"id": guild.id})["modLog"]["enabled"]:
+        if bot.db.servers.find_one({"id": guild.id})["modLog"]["modular"].get("memberUnban"):
+            # Get the channel #
+            channel = guild.get_channel(bot.db.servers.find_one({"id": guild.id})["modLog"]["channel"])
+            
+            # Get the locale #
+            locale = bot.db.servers.find_one({"id": guild.id})["locale"]
+            with open(f"locale/{locale}.json", "r") as f:
+                locale = json.load(f)
+            
+            # Try and grab the person who unbanned the user via audit logs #
+            # If it fails, use the bot itself #
+            try:
+                unbannedBy = await guild.audit_logs(limit=1, action=discord.AuditLogAction.unban).flatten()
+                unbannedBy = unbannedBy[0].user
+            except:
+                unbannedBy = bot.user
+            
+            # Generate the embed #
+            embed = discord.Embed(
+                title=locale.get("ModLogMemberUnbanTitle"),
+                description=f"**{locale.get('User')}**\n{user.mention}\n**{locale.get('Moderator')}**\n{unbannedBy.mention}",
+                color=0xff0000,
+                timestamp=datetime.datetime.utcnow()
+            )
+            embed.set_footer(text=f"User ID: {user.id}")
+            embed.set_author(name=user, icon_url=user.avatar)
+            
+            embed.set_thumbnail(url="https://media.discordapp.net/attachments/1030143502912344114/1072279381407449118/Frostbyte-ModLog.png")
+            # Send the embed #
+            await channel.send(embed=embed)
+
 # Error Handler #
 @bot.event
 async def on_command_error(ctx, error):

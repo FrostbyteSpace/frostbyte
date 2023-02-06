@@ -228,7 +228,7 @@ class Informational(commands.Cog):
         if command is None:   
             # Add all commands to the embed #
             for cog in sorted(self.bot.cogs):
-                if cog.lower() == "admintools" and not (ctx.author.id in self.bot.owner_ids): # Don't show admin commands to non-owners # We don't use the is_owner() check as it always returns True here #
+                if cog == "AdminTools" and not (ctx.author.id in self.bot.owner_ids): # Don't show admin commands to non-owners # We don't use the is_owner() check as it always returns True here #
                     continue
                 if cog.lower() == "nsfw" and not ctx.channel.is_nsfw(): # Don't show NSFW commands in non-NSFW channels #
                     continue

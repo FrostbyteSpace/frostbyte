@@ -172,6 +172,14 @@
     "LoggingChannelSet": "The logging channel has been set to {channel}.",
     "LoggingChannelDisabled": "The logging channel has been disabled.",
     "LoggingEventsTitle": "Events",
-    "LoggingEventsFooter": "Use ``{prefix}config logging <enable|disable|channel|events>`` to manage logging"
+    "LoggingEventsFooter": "Use ``{prefix}config logging <enable|disable|channel|events>`` to manage logging",
 
+    "ModLogMessageDeleteTitle": "Message Deleted",
+    "ModLogMemberBanTitle": "Member Banned",
+    "Content": "Content",
+    "Channel": "Channel",
+    "DeletedBy": "Deleted By",
+    "User": "User",
+    "Reason": "Reason",
+    "Moderator": "Moderator"
 }
