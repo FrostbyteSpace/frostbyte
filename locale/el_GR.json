@@ -1,0 +1,12 @@
+{
+    "meta": {
+        "name": "ελληνική δημοκρατία",
+        "short_name": "ελλάδα",
+        "english_name": "Hellenic Republic / Greece",
+        "code": "GR",
+        "flag": ":flag_gr:",
+        "denonym": "Ελληνικά"
+    },
+
+    "NotYetTranslated": "Δεν έχει μεταφραστεί ακόμα"
+}
