@@ -188,7 +188,7 @@ async def database_integrity_checker():
                     for key in db_template:
                         if key not in bot.db.servers.find_one({"id": guild.id}):
                             bot.db.servers.update_one({"id": guild.id}, {"$set": {key: db_template[key]}})
-                            await bot.bot_log.send(embed=discord.Embed(title="Database Integrity Check", description=f"{guild.name} failed integrity check.\nReason: Missing key ``{key}``\nFix: Added key to database.", color=discord.Color.green()))
+                            #await bot.bot_log.send(embed=discord.Embed(title="Database Integrity Check", description=f"{guild.name} failed integrity check.\nReason: Missing key ``{key}``\nFix: Added key to database.", color=discord.Color.green()))
                 except Exception as e: pass # This is here because if the server is missing, it will throw an error.
             
             # Finally, check if the server still has the bot. If not, remove it from the database. This is required because GPDR compliance.
@@ -325,12 +325,12 @@ class LocalisedBot(AutoShardedBot):
     async def get_context(self, message, *, cls=CustomContext):
         return await super().get_context(message, cls=cls)
 
-bot = LocalisedBot(command_prefix=get_prefix, intents=intents, log_level=None, activity=discord.Activity(name="with wires. Standby!"),status=discord.Status.dnd)
+bot = LocalisedBot(command_prefix=get_prefix, intents=intents, log_level=None, activity=discord.Activity(name="with wires. Standby!"),status=discord.Status.dnd,case_insensitive=True,chunk_guilds_at_startup=False)
 
 #bot = AutoShardedBot(command_prefix=get_prefix,intents=intents,log_level=logging.ERROR)
 #bot = AutoShardedBot(command_prefix="fbb.",intents=intents,log_level=logging.ERROR)
 
-bot.version = "arctic-sunrise-r2.0.0" #CODE-NAME-release-MAJOR.MINOR.PATCH
+bot.version = "arctic-sunrise-r2.0.2" #CODE-NAME-release-MAJOR.MINOR.PATCH
 
 @bot.event
 async def on_ready():
@@ -465,7 +465,7 @@ async def on_ready():
     #termcolor.cprint("Started status loop")
     
     # Start the database integrity checker
-    bot.loop.create_task(database_integrity_checker())
+    #bot.loop.create_task(database_integrity_checker())
     #debug_print("Started database integrity checker")
     
     # Check if the webhook server is running by pinging it
@@ -606,6 +606,11 @@ async def on_guild_remove(guild):
 @bot.event
 async def on_message(ctx):
     if not bot.is_ready():
+        # Log to console #
+        if ctx.guild:
+            print(ctx.guild.name + " | " + ctx.channel.name + " | " + ctx.author.name + ": " + ctx.content)
+        else:
+            print("DM | " + ctx.author.name + ": " + ctx.content)
         return
     # Ignore messages from bots #
     if ctx.author.bot:
@@ -699,7 +704,7 @@ async def on_member_update(before, after):
     if not bot.is_ready():
         return
     # Anti-hoist #
-    if bot.db.servers.find_one({"id": before.guild.id})["antiHoist"]:
+    if bot.db.servers.find_one({"id": before.guild.id})["antiHoist"]["enabled"]:
         if before.display_name != after.display_name:
             # If the user has a role that is higher than the bot, ignore them #
             if after.top_role > after.guild.me.top_role:
