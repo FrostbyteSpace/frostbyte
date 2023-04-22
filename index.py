@@ -605,13 +605,6 @@ async def on_guild_remove(guild):
 
 @bot.event
 async def on_message(ctx):
-    if not bot.is_ready():
-        # Log to console #
-        if ctx.guild:
-            print(ctx.guild.name + " | " + ctx.channel.name + " | " + ctx.author.name + ": " + ctx.content)
-        else:
-            print("DM | " + ctx.author.name + ": " + ctx.content)
-        return
     # Ignore messages from bots #
     if ctx.author.bot:
         return
@@ -662,14 +655,15 @@ async def on_message(ctx):
             for char in ctx.content:
                 if char.isupper():
                     caps += 1
-                else:
-                    if caps >= bot.db.servers.find_one({"id": ctx.guild.id})["antiCapsSpam"]["maxAllowed"]:
-                        await ctx.delete()
-                        await ctx.channel.send(f"{ctx.author.mention} {await ctx.get_locale(message='AntiCapsSpamMessage')}")
-                        return
-                    else:
-                        caps = 0
-    except:
+
+            if caps >= bot.db.servers.find_one({"id": ctx.guild.id})["antiCapsSpam"]["maxAllowed"]:
+                await ctx.delete()
+                await ctx.channel.send(f"{ctx.author.mention} {await ctx.get_locale(message='AntiCapsSpamMessage')}")
+                return
+            else:
+                caps = 0
+    except Exception as e :
+        print(e)
         pass
     
     

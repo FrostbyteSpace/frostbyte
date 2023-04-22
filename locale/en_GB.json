@@ -119,6 +119,10 @@
     "LeaveSet": "The leave channel has been set to {channel}.",
     "LeaveDisabled": "The leave channel has been disabled.",
 
+    "AntiCapsSpamSet": "The anti-caps spam setting has been set to `{enabled}`, allowing messages under `{maxAllowed}` caps.",
+
+    "AntiInviteSet": "The anti-invite setting has been set to `{enabled}`.",
+
     "HelpTitle": "Commands",
     "HelpDescription": "The following commands are available.",
     "HelpFooter": "Use ``help <command>`` to get more information about a command.",

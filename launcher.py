@@ -157,7 +157,7 @@ if "--staging" in launch_args:
 # If exit code is 1, the bot has failed to compile.
 # Provide all the compile arguments to the compiler.
 if "--force-no-compile" not in compile_args:
-    exit_code = subprocess.call([sys.executable, "compile.py"] + compile_args)
+    exit_code = subprocess.call(["\"" + sys.executable + "\"", "compile.py"] + compile_args)
     if exit_code == 1:
         cprint("Bot failed to compile. Exiting.", "red", "on_white")
         exit()
@@ -170,4 +170,4 @@ for file in os.listdir("./temp"):
 
 # And finally, launch the bot.
 # This should pass execution to the bot.
-os.system(sys.executable + " index.py " + " ".join(launch_args))
+os.system("\"" + sys.executable + "\"" + " index.py " + " ".join(launch_args))

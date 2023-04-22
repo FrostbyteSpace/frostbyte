@@ -14,29 +14,26 @@ class AdminTools(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.is_owner() # Imported from v1.0.0
+    @commands.is_owner()
     @commands.command(brief="Reloads all cogs")
     async def reload(self, ctx, *, cogs: str = "all"):
-        success = []
-        fails = []
+        success, fails = [], []
         if cogs == "all":
             cogs = [x.replace(".py", "") for x in os.listdir("./core") if x.endswith(".py")]
         else:
             cogs = cogs.split(", ")
         msg = await ctx.reply(f"Reloading {len(cogs)} cogs..")
         for cog in cogs:
-            if cog != "main":
-                try:
-                    await self.bot.reload_extension(f"core.{cog}")
-                    success.append(cog)
-                except Exception as e:
-                    fails.append(str(e))
-
+            try:
+                await self.bot.reload_extension(f"core.{cog}")
+                success.append(cog)
+            except Exception as e:
+                fails.append(str(e))
         sstr = "\n".join(success)
         fstr = "\n".join(fails)
-        await msg.edit(content=None,embed=discord.Embed(description= f"Successfully reloaded {len(success)} cog{'s' if len(success) != 1 else ''}."
-            f"\n{(f'```{sstr}```' if len(success) > 0 else '')}And failed to reload {len(fails)} "
-            f"cog{'s' if len(fails) != 1 else ''}\n{(f'```{fstr}```' if len(fails) > 0 else '')}",color=self.bot.main_color()))
+        await msg.edit(content=None,embed=discord.Embed(description=f"Successfully reloaded {len(success)} cog{'s' if len(success) != 1 else ''}."
+            f"\n```\n{sstr}\n```"*(len(success)>0)+f"And failed to reload {len(fails)} cog{'s' if len(fails) != 1 else ''}.\n```\n{fstr}\n```"*(len(fails)>0),
+                                                        color=self.bot.main_color()))
     
     @commands.is_owner()
     @commands.command()

@@ -278,9 +278,21 @@ class Configuration(commands.Cog):
     @commands.has_guild_permissions(manage_nicknames=True)
     @config.command(brief="Toggles the anti-hoist filter")
     async def antihoist(self, ctx):
-        self.bot.db.servers.update_one({"id": ctx.guild.id}, {"$set": {"antiHoist": not self.bot.db.servers.find_one({"id": ctx.guild.id})["antiHoist"]}})
-        await ctx.send_locale(message="AntiHoistSet", enabled=not self.bot.db.servers.find_one({"id": ctx.guild.id})["antiHoist"])
-        
+        self.bot.db.servers.update_one({"id": ctx.guild.id}, {"$set": {"antiHoist": not self.bot.db.servers.find_one({"id": ctx.guild.id})["antiHoist"]["enabled"]}})
+        await ctx.send_locale(message="AntiHoistSet", enabled=not self.bot.db.servers.find_one({"id": ctx.guild.id})["antiHoist"]["enabled"])
+
+    @commands.has_guild_permissions(manage_guild=True)
+    @config.command(brief="Toggle the anti-invite filter")
+    async def antiinvite(self, ctx):
+        self.bot.db.servers.update_one({"id": ctx.guild.id}, {"$set": {"antiInvite": not self.bot.db.servers.find_one({"id": ctx.guild.id})["antiInvite"]}})
+        await ctx.send_locale(message="AntiInviteSet", enabled=not self.bot.db.servers.find_one({"id": ctx.guild.id})["antiInvite"])
+
+    @commands.has_guild_permissions(manage_guild=True)
+    @config.command(brief="Toggle the anti-caps spam filter")
+    async def anticapsspam(self, ctx, max_allowed: int = 5):
+        self.bot.db.servers.update_one({"id": ctx.guild.id}, {"$set": {"antiCapsSpam": {"enabled": (True if max_allowed > 0 else False), "maxAllowed": max_allowed}}})
+        await ctx.send_locale(message="AntiCapsSpamSet", enabled=(True if max_allowed > 0 else False), maxAllowed=max_allowed)
+
     @commands.has_guild_permissions(manage_guild=True)
     @config.command(brief="Sets (or disables) the welcome channel")
     async def welcome(self, ctx, *, channel : discord.TextChannel = None):
